@@ -53,7 +53,7 @@ except Exception as e:
 #add a select widget to the side bar
 chart_select = st.sidebar.selectbox(
     label= "Select the chart type",
-    options=['Scatterplots', 'Lineplots', 'Barplots', 'LinePlot', 'Histogram']
+    options=['Scatterplots', 'Lineplots', 'Barplots', 'LinePlot', 'Boxplot', 'Histogram']
 )
 
 #main code where it lets you select x and y values
@@ -279,6 +279,28 @@ if chart_select == 'LinePlot':
         y_values=st.sidebar.selectbox("Y_axis", options=categoric_columns)
         plot=px.line(data_frame=df, x=x_values, y=y_values)
         # df=pd.DataFrame(y_values,index=x_values)
+        #display the chart
+        st.plotly_chart(plot)
+    except Exception as e:
+        print(e)
+
+if chart_select == 'Boxplot':
+    st.sidebar.subheader("Boxplot Settings")
+    try:
+        x_values=st.sidebar.selectbox('X axis', options=numeric_columns)
+        y_values=st.sidebar.selectbox('Y axis', options=numeric_columns)
+        plot=px.box(data_frame=df, x=x_values, y=y_values)
+        #display the chart
+        st.plotly_chart(plot)
+    except Exception as e:
+        print(e)
+
+if chart_select == 'Histogram':
+    st.sidebar.subheader("Histogram Settings")
+    try:
+        x_values=st.sidebar.selectbox('X axis', options=numeric_columns)
+        y_values=st.sidebar.selectbox('Y axis', options=numeric_columns)
+        plot=px.histogram(data_frame=df, x=x_values, y=y_values)
         #display the chart
         st.plotly_chart(plot)
     except Exception as e:
